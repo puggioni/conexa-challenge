@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  nest:
+    container_name: conexa_challenge
+    build:
+      context: ./
+    restart: always
+    ports:
+      - 3001:3000
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - DB_URI=${DB_URI}
