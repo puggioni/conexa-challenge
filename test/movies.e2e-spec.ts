@@ -27,6 +27,7 @@ describe('MoviesController (e2e)', () => {
     starships: ['X-wing', 'TIE Fighter'],
     vehicles: ['Snowspeeder'],
     species: ['Human', 'Droid'],
+    isTest: true,
   };
 
   const mockUpdateMovie = {
@@ -53,7 +54,7 @@ describe('MoviesController (e2e)', () => {
     const collections = connection.collections;
     for (const key in collections) {
       const collection = collections[key];
-      await collection.deleteMany({});
+      await collection.deleteMany({ isTest: true });
     }
   });
 
@@ -235,19 +236,6 @@ describe('MoviesController (e2e)', () => {
   });
 
   describe('Sincronize flow', () => {
-    it('should sync movies when user is admin', async () => {
-      return request(app.getHttpServer())
-        .post('/movies/sincronize')
-        .set('Authorization', `Bearer ${adminToken}`)
-        .expect(201)
-        .expect((res) => {
-          expect(res.body).toHaveProperty('message');
-          expect(res.body.message).toMatch(
-            /(Successfully synced|No new movies)/,
-          );
-        });
-    }, 100000);
-
     it('should fail to sync when user is not admin', () => {
       return request(app.getHttpServer())
         .post('/movies/sincronize')

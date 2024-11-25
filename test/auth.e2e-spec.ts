@@ -9,6 +9,13 @@ describe('AuthController (e2e)', () => {
   let app: INestApplication;
   let connection: Connection;
 
+  const validUser = {
+    full_name: 'Test User',
+    email: 'test@example.com',
+    password: 'password123',
+    isTest: true,
+  };
+
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -21,7 +28,7 @@ describe('AuthController (e2e)', () => {
     const collections = connection.collections;
     for (const key in collections) {
       const collection = collections[key];
-      await collection.deleteMany({});
+      await collection.deleteMany({ isTest: true });
     }
 
     await app.init();
@@ -31,7 +38,7 @@ describe('AuthController (e2e)', () => {
     const collections = connection.collections;
     for (const key in collections) {
       const collection = collections[key];
-      await collection.deleteMany({});
+      await collection.deleteMany({ isTest: true });
     }
   });
 
@@ -41,12 +48,6 @@ describe('AuthController (e2e)', () => {
   });
 
   describe('register flow', () => {
-    const validUser = {
-      full_name: 'Test User',
-      email: 'test@example.com',
-      password: 'password123',
-    };
-
     it('should register a new user successfully', () => {
       return request(app.getHttpServer())
         .post('/auth/register')
@@ -100,12 +101,6 @@ describe('AuthController (e2e)', () => {
   });
 
   describe('login flow', () => {
-    const validUser = {
-      full_name: 'Test User',
-      email: 'test@example.com',
-      password: 'password123',
-    };
-
     beforeEach(async () => {
       await request(app.getHttpServer()).post('/auth/register').send(validUser);
     });

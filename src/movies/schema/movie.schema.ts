@@ -39,6 +39,9 @@ export class Movie {
 
   @Prop()
   planets: string[];
+
+  @Prop()
+  isTest: boolean;
 }
 
 export const MovieSchema = SchemaFactory.createForClass(Movie);
