@@ -26,3 +26,5 @@ $ npm run test:e2e
 Para ir a la documentacion (hecha con swagger) deben dirigirse a http://localhost:3001/api
 
 Sin embargo, para ejecutar los endpoints, utilicen [POSTMAN](https://lunar-water-909224.postman.co/workspace/New-Team-Workspace~ef537e71-00a0-4d34-b702-e3c1e9b86640/collection/26019180-70ba785c-099e-4bb0-a8c4-a7efedef1866?action=share&creator=26019180) con el metodo de autenticacion bearer token en los endpoints que sean requeridos (todos los endpoints de movies).
+
+A fines practicos, he vaciado la base de datos. Por lo que necesitaran crear un usuario regular, y luego un usuario admin. (Por defecto el usuario es regular, por lo que deben aclarar el <role> en el body para que sea 'admin')
